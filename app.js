@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const app = express()
 mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -8,9 +9,11 @@ mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true,
 const Record = require('./models/record.js')
 const Category = require('./models/category.js')
 const generateIconHTML = require('./generateIconHTML.js')
+const { Router } = require('express')
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // 取得資料庫連線狀態
@@ -45,6 +48,28 @@ app.get('/', (req, res) => {
         .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
+})
+
+app.get('/records/new', (req, res) => {
+  Category.find()
+    .lean()
+    .then(categories => {
+      res.render('new', { categories })
+    })
+})
+
+app.post('/records', (req, res) => {
+  const { name, date, category, amount } = req.body
+  Record.create({
+    name: name,
+    date: date,
+    category: category,
+    amount: amount
+  })
+    .then(() => {
+      res.redirect('/')
+    })
+    .catch(error => console.log(error))
 })
 
 // 設定 port 3000

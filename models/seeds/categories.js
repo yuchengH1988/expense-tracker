@@ -1,8 +1,8 @@
 const categories = [
-  { name: '飲食' },
-  { name: '交通' },
-  { name: '娛樂' },
-  { name: '購物' },
+  { name: '家居物業' },
+  { name: '交通出行' },
+  { name: '休閒娛樂' },
+  { name: '餐飲食品' },
   { name: '其他' }
 ]
 

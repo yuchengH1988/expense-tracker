@@ -1,1 +1,32 @@
-<p>Hello, this is how you save monnney</p>
+{{!-- category --}}
+<div class="form-group">
+  <select class="form-control" id="exampleFormControlSelect1">
+    <option>分類</option>
+    {{#each categories}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+</div>
+{{!-- total amount --}}
+<div class="amount d-flex">
+  <div class="amount-title">總金額</div>
+  <div class="totalAmount">{{totalAmount}}</div>
+</div>
+
+{{!-- items --}}
+
+{{#each records}}
+<div class="row justify-content-center">
+  <div class="icon">{{{this.iconHTML}}}</div>
+  <div>
+    <div class="name">{{this.name}}</div>
+    <div class="date">{{this.date}}</div>
+  </div>
+  <div class="amount">{{this.amount}}</div>
+  <div class="edit">edit</div>
+  <div class="delete">delete</div>
+</div>
+{{/each}}
+
+{{!-- add --}}
+<a href="#" class="btn btn-bew">New</a>

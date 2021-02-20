@@ -5,8 +5,13 @@ const exphbs = require('express-handlebars')
 const app = express()
 mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
 
+const Record = require('./models/record.js')
+const Category = require('./models/category.js')
+const generateIconHTML = require('./generateIconHTML.js')
+
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+
 
 // 取得資料庫連線狀態
 const db = mongoose.connection
@@ -21,7 +26,25 @@ db.once('open', () => {
 
 // 設定首頁路由
 app.get('/', (req, res) => {
-  res.render('index')
+  let totalAmount = 0
+  const categories = []
+  Category.find()
+    .lean()
+    .then((items) => {
+      categories.push(...items)
+      Record.find()
+        .lean()
+        .then(records => {
+          records.forEach(record => {
+            totalAmount += Number(record.amount)
+            record.date = record.date.toString().slice(4, 15)
+            record.iconHTML = generateIconHTML(record.category)
+          })
+          res.render('index', { records, categories, totalAmount })
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 })
 
 // 設定 port 3000

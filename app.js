@@ -58,6 +58,24 @@ app.get('/records/new', (req, res) => {
     })
 })
 
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const categories = []
+  Category.find()
+    .lean()
+    .then(items => {
+      categories.push(...items)
+      Record.findById(id)
+        .lean()
+        .then(record => {
+          record.date = record.date.toString().slice(4, 15)
+          res.render('edit', { categories, record })
+        })
+        .catch(error => console.log(error))
+    })
+    .catch(error => console.log(error))
+})
+
 app.post('/records', (req, res) => {
   const { name, date, category, amount } = req.body
   Record.create({
@@ -71,6 +89,22 @@ app.post('/records', (req, res) => {
     })
     .catch(error => console.log(error))
 })
+
+app.post('/records/:id', (req, res) => {
+  const id = req.params.id
+  const { name, date, category, amount } = req.body
+  Record.findById(id)
+    .then((record) => {
+      record.name = name
+      record.date = date
+      record.category = category
+      record.amount = amount
+      record.save()
+      res.redirect('/')
+    })
+    .catch(error => console.log(error))
+})
+
 
 // 設定 port 3000
 app.listen(3000, () => {

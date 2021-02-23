@@ -1,0 +1,38 @@
+<form action="/records/{{record._id}}" method="POST">
+  <div class="container">
+    <div class="row">
+      <div class="col-5 mr-2">*必填欄位
+      </div>
+      <div class="col-6">請輸入你的支出</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">名稱* ：</div>
+    <div class="col-6">
+      <input class="form-control" name="name" type="text" placeholder="請勿留白" value="{{record.name}}" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">日期* ：</div>
+    <input class="col-6 form-control  font-size-large" name="date" type="date" value="{{record.date}}" required>
+  </div>
+  <div class="row">
+    <div class="col-4">類別* ：</div>
+    <select class="col-6 form-select" name="category" aria-label="select category" data-selected="{{record.category}}"
+      required>
+      {{#each categories}}
+      <option value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="row">
+    <div class="col-4">金額* ：</div>
+    <input class=" col-8 form-control  font-size-large" name="amount" type="number" value="{{record.amount}}" step="1"
+      min="0" required>
+  </div>
+
+  <button class="btn btn-major" type="submit">Save</button>
+  <a href="/" class="btn btn-warning">Back</a>
+
+</form>

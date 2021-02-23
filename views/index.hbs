@@ -27,7 +27,7 @@
   </div>
   <div class="amount">{{this.amount}}</div>
   <a href="/records/{{this._id}}/edit" class="btn btn-dark">edit</a>
-  <form action="./records/{{this._id}}/delete" method="POST">
+  <form action="/records/{{this._id}}?_method=DELETE" method="POST">
     <button type="submit">delete</button>
   </form>
 </div>

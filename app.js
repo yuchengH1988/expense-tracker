@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const app = express()
 mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -14,6 +15,7 @@ const { Router } = require('express')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 
 // 取得資料庫連線狀態
@@ -96,7 +98,7 @@ app.post('/records', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/records/:id', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name, date, category, amount } = req.body
   Record.findById(id)
@@ -111,7 +113,7 @@ app.post('/records/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(record => record.remove())

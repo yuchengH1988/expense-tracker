@@ -1,0 +1,4 @@
+
+.record:nth-child(odd) {
+  background:#eeeeee;
+}

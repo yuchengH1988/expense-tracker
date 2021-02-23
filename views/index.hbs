@@ -1,9 +1,9 @@
 {{!-- category --}}
-<div class="form-group">
+<div class="form-group m-4 mx-auto" style="width:400px">
   <form action="/" method="get">
     <select class="form-control" name="category" aria-label="select category" id="categoryRecord"
       data-selected="{{selectedCategory}}" onchange="submit();">
-      <option>分類</option>
+      <option>所有分類</option>
       {{#each categories}}
       <option value="{{this.name}}">{{this.name}}</option>
       {{/each}}
@@ -11,27 +11,35 @@
   </form>
 </div>
 {{!-- total amount --}}
-<div class="amount d-flex">
-  <div class="amount-title">總金額</div>
-  <div class="totalAmount">{{totalAmount}}</div>
+<div class="amount d-flex mx-auto mb-2" style="width:400px">
+  <div class="amount-title mr-4">總金額：</div>
+  <div class="totalAmount display-4 text-warning">{{totalAmount}} $</div>
 </div>
 
 {{!-- items --}}
-
-{{#each records}}
-<div class="row justify-content-center">
-  <div class="icon">{{{this.iconHTML}}}</div>
-  <div>
-    <div class="name">{{this.name}}</div>
-    <div class="date">{{this.date}}</div>
+<div class="itemsSection mx-auto" style="width:70%;">
+  {{#each records}}
+  <div class="row justify-content-center mt-2 record align-items-center" style="height:60px;">
+    <div class="col-1 icon text-info mr-3 ">{{{this.iconHTML}}}</div>
+    <div class="col-4 ">
+      <div class="name">{{this.name}}</div>
+      <div class="date">{{this.date}}</div>
+    </div>
+    <div class="col-2 amount">{{this.amount}}</div>
+    <div class="col-4 d-flex">
+      <form action="/records/{{this._id}}/edit" method="GET">
+        <button type="submit" class="btn btn-secondary mr-3">EDIT</button>
+      </form>
+      <form action="/records/{{this._id}}?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">delete</button>
+      </form>
+    </div>
   </div>
-  <div class="amount">{{this.amount}}</div>
-  <a href="/records/{{this._id}}/edit" class="btn btn-dark">edit</a>
-  <form action="/records/{{this._id}}?_method=DELETE" method="POST">
-    <button type="submit">delete</button>
-  </form>
+
+  {{/each}}
 </div>
-{{/each}}
 
 {{!-- add --}}
-<a href="/records/new" class="btn btn-bew">New</a>
+<div class="row justify-content-center mt-3">
+  <a href="/records/new" class="btn btn-success btn-lg">New</a>
+</div>

@@ -11,6 +11,7 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
+app.use(express.static('public'))
 
 // 設定 port 3000
 app.listen(3000, () => {

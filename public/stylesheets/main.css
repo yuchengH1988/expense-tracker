@@ -2,3 +2,20 @@
 .record:nth-child(odd) {
   background:#eeeeee;
 }
+ .itemsSection {
+    max-width: 70%;
+  }
+
+.row{
+  align-items: center;
+}
+
+.edit{
+  justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+  .itemsSection {
+    max-width: 90%;
+  }
+}

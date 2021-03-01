@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const tenPercentile = require('../../tenPercentile')
 
 // 設定首頁路由
 router.get('/', (req, res) => {
@@ -23,7 +24,9 @@ router.get('/', (req, res) => {
           records.forEach(record => {
             totalAmount += Number(record.amount)
             record.date = record.date.toString().slice(4, 15)
+            record.amount = tenPercentile(record.amount)
           })
+          totalAmount = tenPercentile(totalAmount)
           res.render('index', { records, categories, totalAmount, seletedCategory })
         })
         .catch(error => console.error(error))

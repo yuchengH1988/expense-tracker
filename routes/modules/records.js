@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Record = require('../../models/record.js')
-const Category = require('../../models/category.js')
-const generateIconHTML = require('../../generateIconHTML.js')
+const Record = require('../../models/record')
+const Category = require('../../models/category')
 
 router.get('/new', (req, res) => {
   Category.find()

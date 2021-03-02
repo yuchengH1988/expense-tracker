@@ -6,10 +6,10 @@ const tenPercentile = require('../../tenPercentile')
 
 // 設定首頁路由
 router.get('/', (req, res) => {
-  const seletedCategory = req.query.category || ''
+  const selectedCategory = req.query.category || ''
   const filter = {}
-  if (seletedCategory) {
-    filter.category = seletedCategory
+  if (selectedCategory) {
+    filter.category = selectedCategory
   }
   let totalAmount = 0
   const categories = []
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
             record.amount = tenPercentile(record.amount)
           })
           totalAmount = tenPercentile(totalAmount)
-          res.render('index', { records, categories, totalAmount, seletedCategory })
+          res.render('index', { records, categories, totalAmount, selectedCategory })
         })
         .catch(error => console.error(error))
     })

@@ -1,12 +1,12 @@
 {{!-- category --}}
 <div class="form-group m-4 mx-auto" style="width:400px">
   <form action="/" method="get">
-    <select class="form-control" name="category" aria-label="select category" id="categoryRecord"
-      data-selected="{{selectedCategory}}" onchange="submit();">
-      <option>所有分類</option>
+    <select class="form-control" name="category" id="inputType" onchange="submit();">
+      <option>{{#if selectedCategory}}{{selectedCategory}}{{else}}所有分類{{/if}}</option>
       {{#each categories}}
       <option value="{{this.name}}">{{this.name}}</option>
       {{/each}}
+
     </select>
   </form>
 </div>
@@ -41,5 +41,5 @@
 
 {{!-- add --}}
 <div class="row justify-content-center mt-3">
-  <a href="/records/new" class="btn btn-success btn-lg">New</a>
+  <a href="/records/new" class="btn btn-success btn-lg"> New </a>
 </div>

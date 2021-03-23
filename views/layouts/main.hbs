@@ -11,8 +11,13 @@
     integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="/"><i class="fas fa-dollar-sign"></i> 家庭記事本</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+  <a class="navbar-brand" href="/"><i class="fas fa-dollar-sign"></i>{{#if isAuthenticated}}{{user.name}}'s
+    {{/if}} 記帳本</a>
+  {{#if isAuthenticated}}
+  <a href="/users/logout" class="btn btn-outline-light">Logout</a>{{else}}
+  <a href="/users/login" class="btn btn-outline-light">Login</a>
+  {{/if}}
 </nav>
 
 <body>

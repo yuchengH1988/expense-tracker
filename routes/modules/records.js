@@ -12,55 +12,48 @@ router.get('/new', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   const categories = []
-  Category.find()
+  Record.findOne({ _id, userId })
     .lean()
-    .then(items => {
-      categories.push(...items)
-      Record.findById(id)
-        .lean()
-        .then(record => {
-          record.date = record.date.toString().slice(4, 15)
-          res.render('edit', { categories, record })
-        })
-        .catch(error => console.log(error))
-    })
+    .then(record => res.render('edit', { record }))
     .catch(error => console.log(error))
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
-  Record.create({
-    name: name,
-    date: date,
-    category: category,
-    amount: amount
-  })
-    .then(() => {
-      res.redirect('/')
+  const userId = req.user._id
+  const record = req.body
+  Category.find({ name: record.category })
+    .lean()
+    .then(category => {
+      record.icon = category[0].icon
+      Record.create({ ...record, userId })
+        .then(() => res.redirect('/'))
     })
     .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
-  const { name, date, category, amount } = req.body
-  Record.findById(id)
-    .then((record) => {
-      record.name = name
-      record.date = date
-      record.category = category
-      record.amount = amount
-      record.save()
-      res.redirect('/')
+  const _id = req.params.id
+  const userId = req.user._id
+  Record.findOne({ _id, userId })
+    .then(record => {
+      record = Object.assign(record, req.body)
+      Category.find({ name: record.category })
+        .then(category => {
+          record.icon = category[0].icon
+          return record.save()
+        })
     })
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

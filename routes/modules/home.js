@@ -6,6 +6,7 @@ const tenPercentile = require('../../tenPercentile')
 
 // 設定首頁路由
 router.get('/', (req, res) => {
+  const userId = req.user._id
   const selectedCategory = req.query.category || ''
   const filter = {}
   if (selectedCategory) {
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
     .lean()
     .then((items) => {
       categories.push(...items)
-      Record.find(filter)
+      Record.find({ userId })
         .lean()
         .sort({ date: 'asc' })
         .then(records => {

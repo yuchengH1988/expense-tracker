@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const Category = require('../category.js')
 const categories = require('./categories.js') // 載入 todo model
 const db = require('../../config/mongoose')

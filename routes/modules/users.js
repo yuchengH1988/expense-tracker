@@ -39,17 +39,15 @@ router.post('/register', (req, res) => {
       res.render('register', {
         errors, name, email, password, confirmPassword
       })
-    } else {
-      // 如果還沒註冊：寫入資料庫
-      return bcrypt
-        .genSalt(10)
-        .then(salt => bcrypt.hash(password, salt))
-        .then(hash => User.create({
-          name, email, password: hash
-        }))
-        .then(() => res.redirect('/'))
-        .catch(err => console.log(err))
-    }
+    }  // 如果還沒註冊：寫入資料庫
+    return bcrypt
+      .genSalt(10)
+      .then(salt => bcrypt.hash(password, salt))
+      .then(hash => User.create({
+        name, email, password: hash
+      }))
+      .then(() => res.redirect('/'))
+      .catch(err => console.log(err))
   })
 })
 

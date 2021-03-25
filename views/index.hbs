@@ -1,13 +1,18 @@
 {{!-- category --}}
-<div class="form-group m-4 mx-auto" style="width:400px">
+<div class="form-group m-4 mx-auto" style="width:500px">
   <form action="/" method="get">
-    <select class="form-control" name="category" id="inputType" onchange="submit();">
-      <option>{{#if selectedCategory}}{{selectedCategory}}{{else}}所有分類{{/if}}</option>
-      {{#each categories}}
-      <option value="{{this.name}}">{{this.name}}</option>
-      {{/each}}
-
-    </select>
+    <div class="form-row justify-content-around">
+      <select class="form-control col-5" name="month" id="inputType" onchange="submit();">
+        {{#each months}}
+        <option value="{{this.id}}" {{#ifEqual this.id ../selectedMonth}}{{/ifEqual}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+      <select class="form-control col-5" name="category" id="inputType" onchange="submit();">
+        {{#each categories}}
+        <option value="{{this.name}}" {{#ifEqual this.name ../selectedCategory}}{{/ifEqual}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
   </form>
 </div>
 {{!-- total amount --}}

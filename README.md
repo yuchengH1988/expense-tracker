@@ -47,7 +47,6 @@ Email : root@example.com
 Password: 1234
 ```
 
-
 ## Built With & Tools
 
 * CDN include Bootstrap, jQuery, Popper.js and fontawesome

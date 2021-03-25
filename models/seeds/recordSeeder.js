@@ -36,7 +36,7 @@ db.once('open', () => {
       Record.insertMany(records)
         .then(() => {
           console.log('records done ! ')
-          db.close()
+          process.exit()
         })
     })
 })

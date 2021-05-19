@@ -46,6 +46,14 @@ cd expense-tracker
 Email : root@example.com
 Password: 1234
 ```
+## 預覽圖 ( preview image)
+#### 登入頁面
+
+![](pics/login.jpg)
+
+#### 結果頁面
+![](pics/home.jpg)
+
 
 ## Built With & Tools
 

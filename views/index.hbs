@@ -1,50 +1,58 @@
-{{!-- category --}}
-<div class="form-group m-4 mx-auto" style="width:500px">
-  <form action="/" method="get">
-    <div class="form-row justify-content-around">
-      <select class="form-control col-5" name="month" id="inputType" onchange="submit();">
-        {{#each months}}
-        <option value="{{this.id}}" {{#ifEqual this.id ../selectedMonth}}{{/ifEqual}}>{{this.name}}</option>
-        {{/each}}
-      </select>
-      <select class="form-control col-5" name="category" id="inputType" onchange="submit();">
-        {{#each categories}}
-        <option value="{{this.name}}" {{#ifEqual this.name ../selectedCategory}}{{/ifEqual}}>{{this.name}}</option>
-        {{/each}}
-      </select>
-    </div>
-  </form>
-</div>
-{{!-- total amount --}}
-<div class="amount d-flex mx-auto mt-2" style="width:400px">
-  <div class="amount-title mr-4">總金額：</div>
-  <div class="totalAmount display-4 text-warning">{{totalAmount}} $</div>
-</div>
-
-{{!-- items --}}
-<div class="itemsSection mx-auto">
-  {{#each records}}
-  <div class="row justify-content-center mt-2 record" style="height:60px;">
-    <div class="col-1 icon text-info mr-3 ">{{{this.icon}}}</div>
-    <div class="col-4 ">
-      <div class="name">{{this.name}}</div>
-      <div class="date">{{this.date}}</div>
-    </div>
-    <div class="col-2 amount">{{this.amount}} $</div>
-    <div class="col-4 d-flex">
-      <form action="/records/{{this._id}}/edit" method="GET">
-        <button type="submit" class="btn btn-secondary mr-3">EDIT</button>
-      </form>
-      <form action="/records/{{this._id}}?_method=DELETE" method="POST">
-        <button type="submit" class="btn btn-danger">delete</button>
-      </form>
-    </div>
+<div class="container">
+  <div class="charts mx-auto" style="width:350px;heigh:350px;">
+    <canvas id="myChart"></canvas>
   </div>
 
-  {{/each}}
-</div>
+  {{!-- category --}}
+  <div class="form-group m-4 mx-auto" style="width:500px">
+    <form action="/" method="get">
+      <div class="form-row justify-content-around">
+        <select class="form-control col-5" name="month" id="inputType" onchange="submit();">
+          {{#each months}}
+          <option value="{{this.id}}" {{#ifEqual this.id ../selectedMonth}}{{/ifEqual}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+        <select class="form-control col-5" name="category" id="inputType" onchange="submit();">
+          {{#each categories}}
+          <option value="{{this.name}}" {{#ifEqual this.name ../selectedCategory}}{{/ifEqual}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </form>
+  </div>
+  {{!-- total amount --}}
+  <div class="amount d-flex mx-auto mt-2" style="width:400px">
+    <div class="amount-title mr-4">總金額：</div>
+    <div class="totalAmount display-4 text-warning">{{totalAmount}} $</div>
+  </div>
 
-{{!-- add --}}
-<div class="row justify-content-center mt-3">
-  <a href="/records/new" class="btn btn-success btn-lg"> New </a>
+  {{!-- items --}}
+  <div class="itemsSection mx-auto">
+    {{#each records}}
+    <div class="row justify-content-center mt-2 record" style="height:60px;">
+      <div class="col-1 icon text-info mr-3 ">{{{this.icon}}}</div>
+      <div class="col-4 ">
+        <div class="name">{{this.name}}</div>
+        <div class="date">{{this.date}}</div>
+      </div>
+      <div class="col-2 amount">{{this.amount}} $</div>
+      <div class="col-4 d-flex">
+        <form action="/records/{{this._id}}/edit" method="GET">
+          <button type="submit" class="btn btn-secondary mr-3">EDIT</button>
+        </form>
+        <form action="/records/{{this._id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-danger">delete</button>
+        </form>
+      </div>
+    </div>
+
+    {{/each}}
+  </div>
+
+  {{!-- add --}}
+  <div class="row justify-content-center mt-3">
+    <a href="/records/new" class="btn btn-success btn-lg"> New </a>
+  </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="/javascripts/charts.js"></script>
